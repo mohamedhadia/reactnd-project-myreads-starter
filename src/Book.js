@@ -3,7 +3,6 @@ import * as BooksAPI from "./BooksAPI";
 
 function Book(props) {
   const [singleBook, setsingleBook] = useState({});
-
   useEffect(() => {
     async function getBook() {
       props.book !== undefined
@@ -13,7 +12,7 @@ function Book(props) {
           ) /*await BooksAPI.get(props.id).then((data) => setsingleBook(data)) */;
     }
     getBook();
-  }, []);
+  }, [props.book, singleBook]);
 
   return (
     <li key={singleBook.id}>
@@ -30,7 +29,11 @@ function Book(props) {
           <div className="book-shelf-changer">
             <select
               value={singleBook?.shelf || "none"}
-              onChange={(e) => console.log(e.target.value)}
+              onChange={(e) =>
+                BooksAPI.update(singleBook, e.target.value).then(() =>
+                  props.update()
+                )
+              }
             >
               <option value="move" disabled>
                 Move to...
