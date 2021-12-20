@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import * as BooksAPI from "./BooksAPI";
 
-function Book() {
+function Book(props) {
+  const [singleBook, setsingleBook] = useState({});
+
+  useEffect(() => {
+    async function getBook() {
+      props.book !== undefined
+        ? setsingleBook(props.book)
+        : console.log(
+            singleBook
+          ) /*await BooksAPI.get(props.id).then((data) => setsingleBook(data)) */;
+    }
+    getBook();
+  }, []);
+
   return (
-    <li>
+    <li key={singleBook.id}>
       <div className="book">
         <div className="book-top">
           <div
@@ -10,12 +24,14 @@ function Book() {
             style={{
               width: 128,
               height: 193,
-              backgroundImage:
-                'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")',
+              backgroundImage: `url(${singleBook?.imageLinks?.smallThumbnail})`,
             }}
           ></div>
           <div className="book-shelf-changer">
-            <select>
+            <select
+              value={singleBook?.shelf || "none"}
+              onChange={(e) => console.log(e.target.value)}
+            >
               <option value="move" disabled>
                 Move to...
               </option>
@@ -26,8 +42,19 @@ function Book() {
             </select>
           </div>
         </div>
-        <div className="book-title">To Kill a Mockingbird</div>
-        <div className="book-authors">Harper Lee</div>
+        <div className="book-title">{singleBook.title}</div>
+        <div className="book-authors">
+          {singleBook?.authors?.length > 0 &&
+            singleBook?.authors.map((author, i, arr) => {
+              if (arr.length === 1) {
+                return author;
+              } else if (arr.length - 1 === i) {
+                return " and " + author;
+              } else {
+                return author;
+              }
+            })}
+        </div>
       </div>
     </li>
   );
