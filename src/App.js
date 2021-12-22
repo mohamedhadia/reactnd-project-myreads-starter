@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import "./App.css";
 import BooksApp from "./BooksApp";
-import Search from "./Search";
+import SearchPage from "./SearchPage";
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -18,7 +18,7 @@ function App() {
           path="/"
           element={<BooksApp books={books} update={setupdate} />}
         />
-        <Route path="search" element={<Search />} />
+        <Route path="search" element={<SearchPage update={setupdate} />} />
       </Routes>
     </div>
   );

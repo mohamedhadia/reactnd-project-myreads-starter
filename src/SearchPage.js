@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import SearchedBooks from "./SearchedBooks";
 // import BookSearch from "./BookSearch";
 
-function Search(props) {
+function SearchPage(props) {
+  const [searchVlaue, setsearchVlaue] = useState("");
+
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -13,15 +16,18 @@ function Search(props) {
           <input
             type="text"
             placeholder="Search by title or author"
-            // value={searchVlaue}
+            value={searchVlaue}
+            onChange={(e) => setsearchVlaue(e.target.value)}
           />
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid">book </ol>
+        <ol className="books-grid">
+          <SearchedBooks searchVlaue={searchVlaue} update={props.update} />
+        </ol>
       </div>
     </div>
   );
 }
 
-export default Search;
+export default SearchPage;

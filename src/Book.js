@@ -31,7 +31,7 @@ function Book(props) {
               value={singleBook?.shelf || "none"}
               onChange={(e) =>
                 BooksAPI.update(singleBook, e.target.value).then(() =>
-                  props.update()
+                  props.update(Date.now())
                 )
               }
             >
