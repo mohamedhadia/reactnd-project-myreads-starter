@@ -4,10 +4,9 @@ This project was my submission to Udacity's React cross-skilling course. it's a 
 
 ## to start
 clone the repo then 
-`yarn install`
-or 
-`npm install`
+install the dependencies with `yarn install` or `npm install`
 
+start dev server with `yarn start` or `npm start`
 
 ## API
 
