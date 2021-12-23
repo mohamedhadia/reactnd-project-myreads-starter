@@ -16,7 +16,7 @@ function SearchPage(props) {
           <input
             type="text"
             placeholder="Search by title or author"
-            value={searchVlaue}
+            // value={searchVlaue}
             onChange={(e) => setsearchVlaue(e.target.value)}
           />
         </div>
